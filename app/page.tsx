@@ -1,103 +1,143 @@
-import Image from "next/image";
+// app/page.tsx
+"use client";
+
+import { useEffect, useState } from "react";
+import Container from "@/components/Container";
+import Hero from "@/components/Hero";
+import PracticeGrid from "@/components/PracticeGrid";
+import ContactCard from "@/components/ContactCard";
+
+// Valid section ids that can be shown individually
+const VALID_SECTIONS = ["about", "areas", "faqs", "contact"] as const;
+type SectionId = (typeof VALID_SECTIONS)[number] | null;
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [active, setActive] = useState<SectionId>(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
+  // Sync UI with location hash (e.g., #about, #areas...)
+  useEffect(() => {
+    const applyFromHash = () => {
+      const h = (window.location.hash || "").replace("#", "");
+      setActive(VALID_SECTIONS.includes(h as any) ? (h as SectionId) : null);
+    };
+    applyFromHash();
+    window.addEventListener("hashchange", applyFromHash);
+    return () => window.removeEventListener("hashchange", applyFromHash);
+  }, []);
+
+  // Render section if on full page (no hash) or if its id matches the active hash
+  const show = (id: SectionId) => active === null || active === id;
+
+  return (
+    <div>
+      {/* Only show hero on full page view */}
+      {active === null && <Hero />}
+
+      {/* -------------------- About -------------------- */}
+      {show("about") && (
+        <section id="about" className="scroll-mt-28 md:scroll-mt-32">
+          <Container>
+            <h2 className="display text-2xl font-extrabold tracking-tight">About</h2>
+            <p className="mt-4 text-slate-700">
+              Advocate Bishnu Rishi Koirala is a senior lawyer at
+              <span className="font-semibold"> Mahabai Kanooni Sewa Kendra</span>,
+              located in Anamnagar, Kathmandu. With over 27 years of legal practice,
+              he has built a strong reputation for delivering practical and trusted
+              legal counsel. He is a licensed advocate (Bar License No. 7289), a
+              member of the Nepal Bar Council, and the recent Vice President of
+              the High Court Bar Association, Patan.
+            </p>
+
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="text-xs uppercase tracking-wider text-slate-500">Years in practice</div>
+                <div className="mt-1 text-2xl font-bold">27+</div>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="text-xs uppercase tracking-wider text-slate-500">License</div>
+                <div className="mt-1 text-2xl font-bold">7289</div>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="text-xs uppercase tracking-wider text-slate-500">Languages</div>
+                <div className="mt-1 text-2xl font-bold">English, Nepali, Hindi</div>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="text-xs uppercase tracking-wider text-slate-500">Bar Associations</div>
+                <div className="mt-1 text-base font-semibold">
+                  Nepal Bar Council; High Court Bar Association (Patan)
+                </div>
+              </div>
+            </div>
+          </Container>
+        </section>
+      )}
+
+      {active === null && (
+        <hr className="mx-auto my-12 h-px w-11/12 max-w-7xl border-0 bg-slate-200/70" />
+      )}
+
+      {/* -------------------- Practice Areas -------------------- */}
+      {show("areas") && (
+        <section id="areas" className="scroll-mt-28 md:scroll-mt-32">
+          <Container>
+            <h2 className="display text-2xl font-extrabold tracking-tight">Practice Areas</h2>
+            <PracticeGrid />
+            <p className="mt-4 text-sm text-slate-500">
+              General information only; not legal advice.
+            </p>
+          </Container>
+        </section>
+      )}
+
+      {active === null && (
+        <hr className="mx-auto my-12 h-px w-11/12 max-w-7xl border-0 bg-slate-200/70" />
+      )}
+
+      {/* -------------------- FAQs -------------------- */}
+      {show("faqs") && (
+        <section id="faqs" className="scroll-mt-28 md:scroll-mt-32">
+          <Container>
+            <h2 className="display text-2xl font-extrabold tracking-tight">FAQs</h2>
+            <div className="mt-8 grid gap-6">
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="font-semibold">What should I bring to the first meeting?</div>
+                <p className="mt-2 text-slate-700">
+                  Any IDs, relevant agreements, notices, and a brief timeline.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="font-semibold">Do you offer phone consultations?</div>
+                <p className="mt-2 text-slate-700">Yes, scheduled by appointment.</p>
+              </div>
+            </div>
+          </Container>
+        </section>
+      )}
+
+      {active === null && (
+        <hr className="mx-auto my-12 h-px w-11/12 max-w-7xl border-0 bg-slate-200/70" />
+      )}
+
+      {/* -------------------- Contact -------------------- */}
+      {show("contact") && (
+        <section id="contact" className="scroll-mt-28 md:scroll-mt-32">
+          <Container>
+            <ContactCard />
+          </Container>
+        </section>
+      )}
+
+      {/* When filtered to a single section, show a way back */}
+      {active !== null && (
+        <div className="mx-auto max-w-7xl px-6 py-10">
           <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#top"
+            className="inline-block rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
+            ← Back to full page
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      )}
     </div>
   );
 }
