@@ -11,14 +11,19 @@ import ContactCard from "@/components/ContactCard";
 const VALID_SECTIONS = ["about", "areas", "faqs", "contact"] as const;
 type SectionId = (typeof VALID_SECTIONS)[number] | null;
 
+// Type guard: tells TS/ESLint that a string is a valid section id
+function isSectionId(s: string): s is (typeof VALID_SECTIONS)[number] {
+  return (VALID_SECTIONS as readonly string[]).includes(s);
+}
+
 export default function Home() {
   const [active, setActive] = useState<SectionId>(null);
 
   // Sync UI with location hash (e.g., #about, #areas...)
   useEffect(() => {
     const applyFromHash = () => {
-      const h = (window.location.hash || "").replace("#", "");
-      setActive(VALID_SECTIONS.includes(h as any) ? (h as SectionId) : null);
+      const raw = (window.location.hash || "").replace("#", "");
+      setActive(isSectionId(raw) ? raw : null);
     };
     applyFromHash();
     window.addEventListener("hashchange", applyFromHash);
@@ -82,9 +87,7 @@ export default function Home() {
           <Container>
             <h2 className="display text-2xl font-extrabold tracking-tight">Practice Areas</h2>
             <PracticeGrid />
-            <p className="mt-4 text-sm text-slate-500">
-              General information only; not legal advice.
-            </p>
+            <p className="mt-4 text-sm text-slate-500">General information only; not legal advice.</p>
           </Container>
         </section>
       )}
