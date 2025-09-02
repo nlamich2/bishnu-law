@@ -41,39 +41,43 @@ export default function Home() {
       {/* -------------------- About -------------------- */}
       {show("about") && (
         <section id="about" className="scroll-mt-28 md:scroll-mt-32">
-          <Container>
-            <h2 className="display text-2xl font-extrabold tracking-tight">About</h2>
-            <p className="mt-4 text-slate-700">
-              Advocate Bishnu Rishi Koirala is a senior lawyer at
-              <span className="font-semibold"> Mahabai Kanooni Sewa Kendra</span>,
-              located in Anamnagar, Kathmandu. With over 27 years of legal practice,
-              he has built a strong reputation for delivering practical and trusted
-              legal counsel. He is a licensed advocate (Bar License No. 7289), a
-              member of the Nepal Bar Council, and the recent Vice President of
-              the High Court Bar Association, Patan.
-            </p>
+         <Container>
+  <h2 className="display text-2xl font-extrabold tracking-tight">About</h2>
 
-            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                <div className="text-xs uppercase tracking-wider text-slate-500">Years in practice</div>
-                <div className="mt-1 text-2xl font-bold">27+</div>
-              </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                <div className="text-xs uppercase tracking-wider text-slate-500">License</div>
-                <div className="mt-1 text-2xl font-bold">7289</div>
-              </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                <div className="text-xs uppercase tracking-wider text-slate-500">Languages</div>
-                <div className="mt-1 text-2xl font-bold">English, Nepali, Hindi</div>
-              </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                <div className="text-xs uppercase tracking-wider text-slate-500">Bar Associations</div>
-                <div className="mt-1 text-base font-semibold">
-                  Nepal Bar Council; High Court Bar Association (Patan)
-                </div>
-              </div>
-            </div>
-          </Container>
+  <p className="mt-4 text-slate-700">
+    Advocate Bishnu Rishi Koirala is a senior lawyer at
+    <span className="font-semibold"> Mahabai Kanooni Sewa Kendra</span>, located
+    in Anamnagar, Kathmandu. With over 27 years of legal practice, he has built a
+    strong reputation for delivering practical, trusted legal counsel. He is a
+    licensed advocate (Bar License No. 7289), a member of the Nepal Bar Council,
+    and the recent Vice President of the High Court Bar Association, Patan.
+  </p>
+
+  <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="text-xs uppercase tracking-wider text-slate-500">Years in practice</div>
+      <div className="mt-1 text-2xl font-bold">27+</div>
+    </div>
+
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="text-xs uppercase tracking-wider text-slate-500">License</div>
+      <div className="mt-1 text-2xl font-bold">7289</div>
+    </div>
+
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="text-xs uppercase tracking-wider text-slate-500">Languages</div>
+      <div className="mt-1 text-2xl font-bold">English, Nepali, Hindi</div>
+    </div>
+
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="text-xs uppercase tracking-wider text-slate-500">Bar Associations</div>
+      <div className="mt-1 text-base font-semibold">
+        Nepal Bar Council; High Court Bar Association (Patan)
+      </div>
+    </div>
+  </div>
+</Container>
+
         </section>
       )}
 

@@ -15,14 +15,26 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Advocate Bishnu Rishi Koirala | Mahabai Kanooni Sewa Kendra, Kathmandu",
+  title: "Advocate Bishnu Rishi Koirala | Senior Lawyer in Kathmandu",
   description:
-    "Advocate Bishnu Rishi Koirala — senior lawyer at Mahabai Kanooni Sewa Kendra, Anamnagar, Kathmandu. 27+ years of experience in family, criminal defense, immigration, business, and personal injury law.",
+    "Advocate Bishnu Rishi Koirala — senior lawyer at Mahabai Kanooni Sewa Kendra, Anamnagar, Kathmandu. 27+ years in family law, criminal defense, immigration, business, and personal injury. Call +977 9851150766.",
+  keywords: [
+    "Advocate Bishnu Rishi Koirala",
+    "lawyer Kathmandu",
+    "Nepal advocate",
+    "family law Nepal",
+    "criminal defense Kathmandu",
+    "immigration lawyer Nepal",
+    "business law Nepal",
+    "personal injury Nepal",
+    "Mahabai Kanooni Sewa Kendra",
+    "Anamnagar lawyer",
+  ],
   icons: [{ rel: "icon", url: "/favicon.ico" }],
   openGraph: {
     title: "Advocate Bishnu Rishi Koirala | Mahabai Kanooni Sewa Kendra",
     description:
-      "Lawyer in Kathmandu with 27+ years of practice. Senior advocate at Mahabai Kanooni Sewa Kendra, Anamnagar. Contact: +977 9851150766.",
+      "Senior lawyer in Kathmandu with 27+ years of practice. Contact: +977 9851150766.",
     type: "website",
     url: "/",
     images: ["/og-image.png"],
@@ -31,11 +43,15 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Advocate Bishnu Rishi Koirala | Mahabai Kanooni Sewa Kendra",
     description:
-      "Senior lawyer at Mahabai Kanooni Sewa Kendra, Kathmandu. 27+ years of trusted legal practice.",
+      "Senior lawyer in Kathmandu. Family, criminal, immigration, business, injury.",
     images: ["/og-image.png"],
   },
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    languages: { "en": "/", "ne-NP": "/" },
+  },
 };
+
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
